@@ -4,7 +4,41 @@ const fmt = d => { const x = new Date(d); return `${x.getFullYear()}-${String(x.
 const state = { date: new Date(), type: '', room: null, user: null, lang: localStorage.getItem('ku-lang') || 'th', loading: false };
 let renderVersion = 0;
 const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
-const api = (action, options = {}) => fetch(`api/index.php?action=${action}`, { credentials: 'include', headers: {'Content-Type': 'application/json'}, ...options }).then(async response => { let data = {}; try { data = await response.json(); } catch {} if (!response.ok) { if (response.status===401 && data.code==='AUTH_REQUIRED' && state.user) { state.user=null; updateUser(); toast('เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่','info'); } throw new Error(data.error || 'เกิดข้อผิดพลาด กรุณาลองใหม่'); } return data; });
+const API_BASE = 'https://ku-room-reserve-production.up.railway.app';
+
+const api = (action, options = {}) =>
+  fetch(`${API_BASE}/api/index.php?action=upload-room-image`, {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(options.headers || {})
+    },
+    ...options
+  })
+  .then(async response => {
+    let data = {};
+    try {
+      data = await response.json();
+    } catch {}
+
+    if (!response.ok) {
+      if (
+        response.status === 401 &&
+        data.code === 'AUTH_REQUIRED' &&
+        state.user
+      ) {
+        state.user = null;
+        updateUser();
+        toast('เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่', 'info');
+      }
+
+      throw new Error(
+        data.error || 'เกิดข้อผิดพลาด กรุณาลองใหม่'
+      );
+    }
+
+    return data;
+  });
 function toast(message, type = 'info') { const item = document.createElement('div'); item.className = `toast ${type}`; item.setAttribute('role','status'); item.textContent = message; document.body.append(item); requestAnimationFrame(() => item.classList.add('show')); setTimeout(() => item.remove(), 3600); }
 function setBusy(button, busy, label) { if (!button) return; button.disabled = busy; if (busy) { button.dataset.label = button.textContent; button.textContent = label || 'กำลังดำเนินการ…'; } else if (button.dataset.label) { button.textContent = button.dataset.label; delete button.dataset.label; } }
 function openModal(html) { $('#modalContent').innerHTML = html; $('#modal').classList.add('show'); const focus = $('#modalContent input, #modalContent select, #modalContent button'); focus?.focus(); }
