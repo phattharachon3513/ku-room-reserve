@@ -4,37 +4,26 @@ const fmt = d => { const x = new Date(d); return `${x.getFullYear()}-${String(x.
 const state = { date: new Date(), type: '', room: null, user: null, lang: localStorage.getItem('ku-lang') || 'th', loading: false };
 let renderVersion = 0;
 const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
-const API_BASE = 'https://ku-room-reserve-production.up.railway.app';
+const API_URL = 'https://ku-room-reserve-production.up.railway.app/api/index.php';
 
 const api = (action, options = {}) =>
-  fetch(`${API_BASE}/api/index.php?action=upload-room-image`, {
+  fetch(`${API_URL}?action=${action}`, {
     credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      ...(options.headers || {})
-    },
+    headers: {'Content-Type': 'application/json'},
     ...options
-  })
-  .then(async response => {
+  }).then(async response => {
     let data = {};
     try {
       data = await response.json();
     } catch {}
 
     if (!response.ok) {
-      if (
-        response.status === 401 &&
-        data.code === 'AUTH_REQUIRED' &&
-        state.user
-      ) {
+      if (response.status === 401 && data.code === 'AUTH_REQUIRED' && state.user) {
         state.user = null;
         updateUser();
         toast('เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่', 'info');
       }
-
-      throw new Error(
-        data.error || 'เกิดข้อผิดพลาด กรุณาลองใหม่'
-      );
+      throw new Error(data.error || 'เกิดข้อผิดพลาด กรุณาลองใหม่');
     }
 
     return data;
