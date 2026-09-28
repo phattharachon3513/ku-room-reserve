@@ -1,11 +1,11 @@
 <?php
 
 return [
-    'host' => getenv('MYSQLHOST'),
-    'port' => getenv('MYSQLPORT') ?: '3306',
-    'database' => getenv('MYSQLDATABASE'),
-    'username' => getenv('MYSQLUSER'),
-    'password' => getenv('MYSQLPASSWORD'),
+    'host' => 'shortline.proxy.rlwy.net:29836',
+    'port' => '3306',
+    'database' => 'railway',
+    'username' => 'root,
+    'password' => 'VnANDnulciYgctXKflHlaAarCgVVnLUE,
     'charset' => 'utf8mb4',
 
     'session_idle_timeout' => (int)(
