@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'host' => getenv('MYSQLHOST') ?: 'mysql.railway.internal',
+    'host' => getenv('MYSQLHOST') ?: 'shortline.proxy.rlwy.net:29836',
     'port' => getenv('MYSQLPORT') ?: '3306',
     'database' => getenv('MYSQLDATABASE') ?: 'railway',
     'username' => getenv('MYSQLUSER') ?: 'root',
