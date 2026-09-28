@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'host' => 'shortline.proxy.rlwy.net:29836',
-    'port' => '3306',
+    'host' => 'shortline.proxy.rlwy.net',
+    'port' => '29836',
     'database' => 'railway',
     'username' => 'root,
     'password' => 'VnANDnulciYgctXKflHlaAarCgVVnLUE,
