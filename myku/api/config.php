@@ -1,11 +1,11 @@
 <?php
 
 return [
-    'host' => getenv('MYSQLHOST') ?: 'https://ku-room-reserve.vercel.app/',
+    'host' => getenv('MYSQLHOST') ?: 'mysql.railway.internal',
     'port' => getenv('MYSQLPORT') ?: '3306',
-    'database' => getenv('MYSQLDATABASE') ?: 'ku_room_reserve',
+    'database' => getenv('MYSQLDATABASE') ?: 'railway',
     'username' => getenv('MYSQLUSER') ?: 'root',
-    'password' => getenv('MYSQLPASSWORD') ?: '',
+    'password' => getenv('MYSQLPASSWORD') ?: 'VnANDnulciYgctXKflHlaAarCgVVnLUE',
     'charset' => getenv('MYSQLCHARSET') ?: 'utf8mb4',
 
     'session_idle_timeout' => (int)(
