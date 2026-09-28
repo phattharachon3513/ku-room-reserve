@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'host' => getenv('MYSQLHOST') ?: '127.0.0.1',
+    'host' => getenv('MYSQLHOST') ?: 'https://ku-room-reserve.vercel.app/'
     'port' => getenv('MYSQLPORT') ?: '3306',
     'database' => getenv('MYSQLDATABASE') ?: 'ku_room_reserve',
     'username' => getenv('MYSQLUSER') ?: 'root',
