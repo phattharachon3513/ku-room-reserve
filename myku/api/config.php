@@ -4,8 +4,8 @@ return [
     'host' => 'shortline.proxy.rlwy.net',
     'port' => '29836',
     'database' => 'railway',
-    'username' => 'root,
-    'password' => 'VnANDnulciYgctXKflHlaAarCgVVnLUE,
+    'username' => 'root',
+    'password' => 'VnANDnulciYgctXKflHlaAarCgVVnLUE',
     'charset' => 'utf8mb4',
 
     'session_idle_timeout' => (int)(
